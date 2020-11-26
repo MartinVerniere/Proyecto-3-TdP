@@ -1,0 +1,19 @@
+package Logica.Fabrica_Premios;
+
+import java.awt.Point;
+
+import Logica.Juego;
+import Logica.Entidades.*;
+public class Fabrica_Premio_daño extends FabricaPremio {
+	//Atributos
+	//Constructor
+	public Fabrica_Premio_daño(Juego j) {
+		super(j);
+	}
+	//Metodos
+	public Premio crear(Point punto) { 
+		Premio p= new Premio_multiplicar_daño(juego); 
+		p.getImagen().getIcon().setLocation(punto);
+		return p;
+	}
+}
