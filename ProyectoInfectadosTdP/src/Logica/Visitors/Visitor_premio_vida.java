@@ -1,7 +1,7 @@
 package Logica.Visitors;
 
 import Logica.Entidades.*;
-public class Visitor_premio_vida implements Visitor_Premio {
+public class Visitor_premio_vida implements Visitor_premio {
 	//Atributos
 	protected Premio premio;
 	//Constructor

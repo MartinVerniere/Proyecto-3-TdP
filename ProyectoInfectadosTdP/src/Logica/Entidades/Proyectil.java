@@ -3,8 +3,9 @@ package Logica.Entidades;
 import javax.swing.JLabel;
 
 import Logica.Juego;
-import Logica.Imagenes.Imagen_proyectil;
+import Logica.ImagenesLogica.Imagen_proyectil;
 import Logica.Visitors.Visitor;
+import Logica.Visitors.Visitor_proyectil;
 
 public class Proyectil extends Entidad {
 	//Atributos
@@ -13,6 +14,7 @@ public class Proyectil extends Entidad {
 	public Proyectil(Juego j, int daño) {
 		super(j);
 		this.daño=daño;
+		this.miVisitor=new Visitor_proyectil(this);
 		this.miImagen=new Imagen_proyectil();
 	}
 	//Metodos
@@ -22,12 +24,17 @@ public class Proyectil extends Entidad {
 	public int dañar() { return this.daño; }
 	
 	public void accionar() {
-		JLabel i=this.getImagen().getIcon();
-		if (i.getY()+this.velocidad>this.getJuego().getDimension().height) {
+		JLabel i=this.getImagen().getJLabel();
+		
+		if (i.getY()-this.velocidad<0) {
 			this.miEstado=false;
 		}
 		else {
-			i.setLocation(i.getX(), i.getY()+this.velocidad);
+			
+			int nuevoX=i.getX();
+			int nuevoY=i.getY()-this.velocidad; //Se mueve hacia arriba
+			
+			i.setLocation(nuevoX, nuevoY);
 		}
 	}
 }

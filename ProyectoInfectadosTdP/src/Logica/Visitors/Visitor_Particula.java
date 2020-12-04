@@ -2,11 +2,11 @@ package Logica.Visitors;
 
 import Logica.Entidades.*;
 
-public class Visitor_Particula implements Visitor {
+public class Visitor_particula implements Visitor {
 	//Atributos
 	private Particula p;
 	//Constructor
-	public Visitor_Particula(Entidad e1) {
+	public Visitor_particula(Entidad e1) {
 		this.p=(Particula) e1;
 	}
 	//Metodos

@@ -1,9 +1,7 @@
 package Logica.Entidades;
 
-import java.awt.Dimension;
-
 import Logica.Juego;
-import Logica.Imagenes.*;
+import Logica.ImagenesLogica.*;
 import Logica.Visitors.Visitor;
 
 public abstract class Entidad {
@@ -17,10 +15,13 @@ public abstract class Entidad {
 	public Entidad(Juego j){
 		this.miEstado=true;
 		this.miJuego=j;
-		this.velocidad=5;
+		this.velocidad=50;
 	}
 	//Metodos
-	public void colision(Entidad e1) {}
+	public void colision(Entidad e1) {
+		e1.visitar(this.miVisitor);
+	}
+	public void visitar(Visitor v1) {}
 	
 	public boolean getEstado() { return this.miEstado; }
 	public void setEstado(boolean estado) { this.miEstado=estado; }
@@ -33,6 +34,8 @@ public abstract class Entidad {
 	public int getvelocidad() { return this.velocidad; }
 	public void setvelocidad(int i) { this.velocidad=i; }
 	
-	public Dimension gettamaño() { return this.miImagen.getIcon().getSize(); }
+	public int getalto() { return this.miImagen.getJLabel().getHeight(); }
+	public int getancho() { return this.miImagen.getJLabel().getWidth(); }
+	
 	public void accionar() {}
 }

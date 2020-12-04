@@ -2,7 +2,7 @@ package Logica.Visitors;
 
 import Logica.Entidades.*;
 
-public class Visitor_premio_congelar_tiempo implements Visitor_Premio{
+public class Visitor_premio_congelar_tiempo implements Visitor_premio{
 	//Atributos
 	protected Premio premio;
 	//Constructor
@@ -25,7 +25,7 @@ public class Visitor_premio_congelar_tiempo implements Visitor_Premio{
 	@Override
 	public void visit(Jugador j) {
 		for (Entidad e:j.getJuego().getlistaentidades()) {
-			if (e instanceof Infectado) {
+			if (e instanceof Infectado) {                                                                                            //MAL
 				e.setvelocidad(0);
 			}
 		}

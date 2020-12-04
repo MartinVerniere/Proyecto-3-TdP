@@ -3,16 +3,23 @@ package Grafica;
 import java.awt.Color;
 import java.awt.EventQueue;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Logica.Juego;
+import Logica.ImagenesLogica.Imagen;
+import Logica.ImagenesLogica.Imagen_mapa;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -20,9 +27,9 @@ public class GUI extends JFrame {
 
 	private JPanel contentPane;
 	private Juego juego;
-	private Thread HiloEntidades;
-	private Thread HiloTeclado;
+	private Thread hiloEntidades;
 	private Timer hiloPuntaje;
+	private JPanel miMapa;
 
 	/**
 	 * Launch the application.
@@ -33,6 +40,7 @@ public class GUI extends JFrame {
 				try {
 					GUI frame = new GUI();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,112 +53,73 @@ public class GUI extends JFrame {
 	 */
 	public GUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 984, 569);
+		setBounds(100, 100, 623, 808);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		juego=new Juego();
-		
-		HiloEntidades=new HiloEntidades(juego);
-		HiloTeclado=new HiloTeclado(juego);
-		hiloPuntaje=new Timer();
-		
+		this.miMapa=new JPanel();
 		Inicializarpaneles();
-			
+		juego=new Juego(this);
+		
+		
+		hiloPuntaje=new Timer();
+		hiloEntidades=new HiloEntidades(juego, contentPane,hiloPuntaje);	
 	}
 	private void Inicializarpaneles() {
-		// TODO Auto-generated method stub
-		JPanel Menu = new JPanel();
-		Menu.setBounds(10, 11, 240, 96);
-		contentPane.add(Menu);
-		Menu.setLayout(null);
-		Menu.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 		
-		JPanel Mapa = new JPanel();
-		Mapa.setBounds(259, 11, 699, 508);
-		contentPane.add(Mapa);
-		Mapa.setLayout(null);
-		Mapa.setVisible(false);
-		Mapa.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+		this.miMapa.setBounds(10, 59, 587, 700);
+		contentPane.add(this.miMapa);
+		this.miMapa.setLayout(null);
+		this.miMapa.setVisible(false);
+		this.miMapa.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 125, 240, 394);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+		JPanel panelinformacion = new JPanel();
+		panelinformacion.setBounds(10, 11, 587, 37);
+		contentPane.add(panelinformacion);
+		panelinformacion.setLayout(null);
+		panelinformacion.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
 		
-		Inicializarlabelspanel(panel, Mapa, Menu);
+		Inicializarlabelspanel(panelinformacion,this.miMapa);
 	}
+		
 	
-	private void Inicializarlabelspanel(JPanel panel, JPanel Mapa, JPanel Menu) {
+	private void Inicializarlabelspanel(JPanel panelinformacion, JPanel mapa) {
 		// TODO Auto-generated method stub
 		
-		//JLabel labelMapa = new JLabel("");
-		//labelMapa.setBounds(10, 11, 698, 508);
-		//Mapa.add(labelMapa);	
-		//labelMapa.setIcon(this.juego.getMapa().getIcon().getIcon());
-		
-		JLabel lblTiempo = new JLabel("Tiempo:");
-		lblTiempo.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTiempo.setBounds(10, 28, 59, 15);
-		Menu.add(lblTiempo);
+		JLabel labelMapa = new JLabel();
+		String[] imagenes = new String[] {"/Imagenes/pixel-mapa.png"};
+		ImageIcon imagen= new ImageIcon(this.getClass().getResource(imagenes[0]));
+		labelMapa=new JLabel(imagen);
+		labelMapa.setBounds(0,0, imagen.getIconWidth(), imagen.getIconHeight());
+		labelMapa.setSize(mapa.getSize());		
+		mapa.add(labelMapa);
 		
 		JLabel lblPuntaje = new JLabel("Puntaje:");
+		lblPuntaje.setBounds(450, 7, 59, 23);
+		panelinformacion.add(lblPuntaje);
 		lblPuntaje.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblPuntaje.setBounds(10, 66, 59, 15);
-		Menu.add(lblPuntaje);
 		
-		JLabel TiempoActual = new JLabel("00:00:00");
-		TiempoActual.setFont(new Font("Tahoma", Font.BOLD, 12));
-		TiempoActual.setBounds(79, 28, 151, 15);
-		Menu.add(TiempoActual);
+		JLabel puntajeactual = new JLabel("0");
+		puntajeactual.setBounds(508, 7, 69, 23);
+		panelinformacion.add(puntajeactual);
+		puntajeactual.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		JLabel PuntajeActual = new JLabel("0");
-		PuntajeActual.setFont(new Font("Tahoma", Font.BOLD, 12));
-		PuntajeActual.setBounds(77, 66, 153, 15);
-		Menu.add(PuntajeActual);
+		JLabel lblTiempo = new JLabel("Tiempo:");
+		lblTiempo.setBounds(326, 7, 59, 23);
+		panelinformacion.add(lblTiempo);
+		lblTiempo.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		JLabel lblControles = new JLabel("CONTROLES:");
-		lblControles.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblControles.setBounds(7, 280, 223, 19);
-		panel.add(lblControles);
+		JLabel tiempoactual = new JLabel("00:00:00");
+		tiempoactual.setBounds(381, 7, 65, 23);
+		panelinformacion.add(tiempoactual);
+		tiempoactual.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		JLabel lblMoverDerecha = new JLabel("Mover derecha:");
-		lblMoverDerecha.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblMoverDerecha.setBounds(7, 310, 92, 19);
-		panel.add(lblMoverDerecha);
-		
-		JLabel lblFlechaDerecha = new JLabel("Flecha derecha");
-		lblFlechaDerecha.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblFlechaDerecha.setBounds(97, 310, 143, 19);
-		panel.add(lblFlechaDerecha);
-		
-		JLabel lblMoverIzquierda = new JLabel("Mover izquierda:");
-		lblMoverIzquierda.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblMoverIzquierda.setBounds(7, 340, 92, 19);
-		panel.add(lblMoverIzquierda);
-		
-		JLabel lblFlechaIzquierda = new JLabel("Flecha Izquierda");
-		lblFlechaIzquierda.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblFlechaIzquierda.setBounds(97, 340, 143, 19);
-		panel.add(lblFlechaIzquierda);
-		
-		JLabel lblBarraEspaciadora = new JLabel("Barra Espaciadora");
-		lblBarraEspaciadora.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblBarraEspaciadora.setBounds(97, 370, 143, 19);
-		panel.add(lblBarraEspaciadora);
-		
-		JLabel lblDisparar = new JLabel("Disparar:");
-		lblDisparar.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblDisparar.setBounds(7, 370, 92, 19);
-		panel.add(lblDisparar);
-		
-		Inicializarbotones(TiempoActual, PuntajeActual, Mapa, panel);
+		Inicializarbotones(puntajeactual, mapa, panelinformacion, tiempoactual);
 	}
 
-	private void Inicializarbotones(JLabel TiempoActual, JLabel PuntajeActual, JPanel mapa, JPanel panel) {
+	private void Inicializarbotones(JLabel labelpuntajeactual, JPanel mapa, JPanel panelinformacion, JLabel labeltiempoactual) {
 		// TODO Auto-generated method stub
 		
 		TimerTask tarea=new TimerTask() {
@@ -158,8 +127,9 @@ public class GUI extends JFrame {
 			public void run() {
 				String tiempo=juego.getTiempo();
 				String puntaje=String.valueOf(juego.getpuntaje());
-				TiempoActual.setText(tiempo);
-				PuntajeActual.setText(puntaje);
+				
+				labeltiempoactual.setText(tiempo);
+				labelpuntajeactual.setText(puntaje);
 			}	
 		};
 		
@@ -167,23 +137,45 @@ public class GUI extends JFrame {
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				requestFocus();
 				btnJugar.setVisible(false);
 				juego.reiniciarTiempo();
 				hiloPuntaje.schedule(tarea, 0, 1000);
 				mapa.setVisible(true);
 				
-				//JLabel labelmapa = juego.getMapa().getIcon();
-				//labelmapa.setSize(mapa.getSize());
-				//mapa.add(labelmapa);
+				hiloEntidades.start();
 				
-				mapa.add(juego.getJugador().getImagen().getIcon(),0);
-				mapa.repaint();
-				
-				//HiloEntidades.start();
-				//HiloTeclado.start();
+				addKeyListener(new KeyAdapter() {
+					public void keyPressed(KeyEvent e) { 
+						System.out.println(e.getKeyChar());
+						juego.input(juego.getJugador(), e);
+					}
+					
+					public void keyReleased(KeyEvent e) {
+						
+					}
+
+					public void keyTyped(KeyEvent e) {
+						;
+					}
+				});
 			}
 		});
-		btnJugar.setBounds(10, 11, 220, 51);
-		panel.add(btnJugar);
+		btnJugar.setBounds(10, 7, 92, 23);
+		panelinformacion.add(btnJugar);
 	}
+	
+	public void eliminarlabel(JLabel l) {
+		miMapa.remove(l);
+		miMapa.revalidate();
+		miMapa.repaint();
+	}
+	public void agregarlabel(JLabel l) {
+		miMapa.add(l,0);
+		miMapa.revalidate();
+		miMapa.repaint();
+	}
+	
+	public int getanchomapa() {	return this.miMapa.getWidth(); }
+	public int getaltomapa() { return this.miMapa.getHeight(); }
 }

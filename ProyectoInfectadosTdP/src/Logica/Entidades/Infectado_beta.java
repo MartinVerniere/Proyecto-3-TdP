@@ -1,14 +1,16 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.Imagenes.Imagen_infectado_beta;
+import Logica.ImagenesLogica.Imagen_infectado_beta;
 import Logica.Visitors.Visitor;
+import Logica.Visitors.Visitor_infectado_beta;
 
 public class Infectado_beta extends Infectado {
 	//Atributos
 	//Constructor
 	public Infectado_beta(Juego j) {
 		super(j);
+		this.miVisitor=new Visitor_infectado_beta(this);
 		this.miImagen=new Imagen_infectado_beta();
 	}
 	//Metodos

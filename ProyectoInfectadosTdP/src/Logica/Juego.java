@@ -1,101 +1,105 @@
 package Logica;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import Grafica.GUI;
 import Logica.Entidades.*;
 import Logica.Fabrica_Premios.FabricaPremio;
 import Logica.Fabrica_Premios.Fabrica_Premio_congelar;
 import Logica.Fabrica_Premios.Fabrica_Premio_daño;
 import Logica.Fabrica_Premios.Fabrica_Premio_vida;
-import Logica.Imagenes.Imagen;
-import Logica.Imagenes.Imagen_mapa;
+import Logica.LogicaNivel.Nivel;
+import Logica.LogicaNivel.Nivel_1;
 
 public class Juego {
 	//Atributos
+	
 	protected int cantentidades;
 	protected int puntaje;
 	protected long tiempo;
+	protected GUI miGUI;
 	protected Jugador miJugador;
-	protected Imagen miMapa;
 	protected Nivel miNivel;
 	protected Movimiento misMovimientos;
-	protected Dimension dimension;
 	protected FabricaPremio[] misFabricapremio;
 	protected Entidad[] misEntidades;	
 
 	//Constructor
-	public Juego() {
+	
+	public Juego(GUI g) {
 		cantentidades=0;
 		puntaje=0;
 		tiempo=System.currentTimeMillis();
-		dimension=new Dimension(400,500);
-		miMapa=new Imagen_mapa();
-		
-		miJugador=new Jugador(this);
-		miJugador.getImagen().getIcon().setLocation(this.miMapa.getIcon().getWidth()/2,this.miMapa.getIcon().getHeight()/2);
+		this.miGUI=g;
 		
 		misFabricapremio=new FabricaPremio[3];
 		misFabricapremio[0]=new Fabrica_Premio_vida(this);
 		misFabricapremio[1]=new Fabrica_Premio_congelar(this);
 		misFabricapremio[2]=new Fabrica_Premio_daño(this);
 		
+		miJugador=new Jugador(this);
 		miNivel=new Nivel_1(this);
-		
 		misMovimientos=new Movimiento();
 		
 		misEntidades=new Entidad[100];
+		
 		this.añadir(miJugador);
+		System.out.println("Cargo tanda inicial");
+		this.añadirarreglo(this.miNivel.gettanda().getarreglo());
+		
 	}
 	//Metodos
+	
+	public void añadirarreglo(Entidad[] arreglo) {
+		// TODO Auto-generated method stub
+		Timer timeraux=new Timer();
+		TimerTask tarea=new TimerTask() {
+			int cont=0;
+			public void run() {
+				if (cont<arreglo.length) {
+					añadir(arreglo[cont]);
+					cont++;
+				}
+				else {
+					this.cancel();
+				}
+			}
+		};
+		timeraux.schedule(tarea, 2000, 2000);
+	}
+
 	public void input(Jugador e1, KeyEvent i) {
 		misMovimientos.input(e1,i);
 	}
 	
-	public Imagen getMapa() { return this.miMapa; }
-	public void setMapa(Imagen m) { this.miMapa=m; }
-	
+	public void setNivel(Nivel n) { this.miNivel=n; }
 	public Nivel getNivel() { return this.miNivel; }
-	public Entidad[][] getinfectados() { return this.miNivel.getmisinfectados(); }
 	
-	public Dimension getDimension() { return this.dimension; }
-	public void setDimension(Dimension d) { this.dimension=d; }
+	public void setGUI(GUI g) { this.miGUI=g; }
+	public GUI getGUI() { return this.miGUI; }
 	
-	public Jugador getJugador() {
-		return  miJugador;
-	}
+	public void setJugador(Jugador j) { this.miJugador=j; }
+	public Jugador getJugador() { return  miJugador; }
+	
+	public Entidad[] getlistaentidades() { return this.misEntidades; }
 	
 	public void añadir(Entidad e) {
 		if (cantentidades<this.misEntidades.length) {
 			this.misEntidades[cantentidades]=e;
 			cantentidades++;
+			this.miGUI.agregarlabel(e.getImagen().getJLabel());
 		}
-	}
-	
-	public void eliminar(Entidad e) {
-		int cont=0;
-		boolean encontre=false;
-		while (!encontre) {
-			if (this.misEntidades[cont]!=null && this.misEntidades[cont]==e) {
-				encontre=true;
-				this.misEntidades[cont].setEstado(false);
-				this.misEntidades[cont]=null;
-				cantentidades--;
-			}
-		}
-	}
-	
-	public Entidad[] getlistaentidades() { 
-		return this.misEntidades;
 	}
 	
 	public Premio crearpremio(Point p) {
 		Random rnd=new Random();
 		int i=rnd.nextInt(2);
 		Premio aRetornar = this.misFabricapremio[i].crear(p);
-		this.misEntidades[cantentidades++]=aRetornar;
+		
 		return aRetornar;
 	}
 	
@@ -119,31 +123,40 @@ public class Juego {
 	
 	public boolean perdio() {
 		for (Entidad e:this.misEntidades) {
-			if (e instanceof Jugador) {
+			if (e instanceof Jugador) {                                                                                            //MAL
 				return false;
 			}
 		}
 		return true;
 	}
-	/*
-	public boolean gano() {
-		return (termino nivel actual && this.miNivel.getsiguiente()==null);
-	}
-	*/
+	
+	public boolean gano() {	return  (this.miNivel==null); }
+	
 	public void accionar() {
 		eliminarelementos();
 		colision();
 		mover();
 	}
-	
+
 	private void eliminarelementos() {
 		for(int i=0; i<cantentidades;i++) {
 			Entidad e1 = this.misEntidades[i];
 			if (e1.getEstado()==false) {
+				this.miGUI.eliminarlabel(e1.getImagen().getJLabel());
 				e1=null;
 				cantentidades--;
 			}
-			comprimir();
+		}
+		comprimir();
+		
+		this.miNivel.eliminarelementos();
+		
+		if (this.miNivel!=null && this.miNivel.gettanda()==null) {
+			this.miNivel=this.miNivel.getsiguiente();
+			if (this.miNivel!=null) {
+				System.out.println("Cargo nivel siguiente");
+				this.añadirarreglo(this.miNivel.gettanda().getarreglo());
+			}
 		}
 	}
 	private void comprimir() {
@@ -170,12 +183,16 @@ public class Juego {
 	
 	private boolean colision() {
 		for (Entidad e1:this.misEntidades) {
-			for (Entidad e2:this.misEntidades) {
-				if (e1!=e2) {
-					if (e1.getImagen().getIcon().getBounds().intersects(e2.getImagen().getIcon().getBounds())) {
-						e1.colision(e2);
-						e2.colision(e1);
-						return true;
+			if (e1!=null) {
+				for (Entidad e2:this.misEntidades) {
+					if (e2!=null) {
+						if (e1!=e2) {
+							if (e1.getImagen().getJLabel().getBounds().intersects(e2.getImagen().getJLabel().getBounds())) {
+								e1.colision(e2);
+								e2.colision(e1);
+								return true;
+							}
+						}
 					}
 				}
 			}
@@ -184,7 +201,14 @@ public class Juego {
 	}
 	private void mover() {
 		for (Entidad e1:this.misEntidades) {
-			e1.accionar();
+			if (e1!=null) {
+				e1.accionar();
+			}
 		}
 	}
+	
+	public void addpuntaje(int i) { this.puntaje+=i; }
+	
+	public int getanchomapa() {	return this.miGUI.getanchomapa(); }
+	public int getaltomapa() { return this.miGUI.getaltomapa(); }
 }

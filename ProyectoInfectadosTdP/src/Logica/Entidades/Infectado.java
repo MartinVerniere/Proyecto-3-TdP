@@ -17,19 +17,43 @@ public abstract class Infectado extends Persona {
 	public int dañar() {
 		return 10;
 	}
-	public Particula desprenderparticula() {
-		Random rnd=new Random();
-		int i=rnd.nextInt(9);
-		if (i==1) {
-			Particula p=new Particula(miJuego);
-			p.miImagen.getIcon().setLocation(this.miImagen.getIcon().getLocation());
-			return p;
-		}
-		else {
-			return null;
+	
+	public void recibirdaño(int daño) {
+		this.cargaviral=-daño;
+		if (this.cargaviral<1) {
+			this.miEstado=false;
+			this.getJuego().addpuntaje(10);
+			Premio pre=this.soltarpremio(this.miImagen.getJLabel().getLocation());
+			if (pre!=null) {;
+				this.miJuego.añadir(pre);
+			}
 		}
 	}
-	public Premio soltarpremio(Point p) {
+	
+	public void accionar() {
+		JLabel i=this.getImagen().getJLabel();
+		
+		if (i.getY()+this.velocidad>this.miJuego.getaltomapa()) {
+			
+			int nuevoX=i.getX();
+			int nuevoY=0;
+			
+			i.setLocation(nuevoX,nuevoY);
+		}
+		else {
+			
+			int nuevoX=i.getX();
+			int nuevoY=i.getY()+this.velocidad;
+			
+			i.setLocation(nuevoX, nuevoY);
+		}
+		Particula par=desprenderparticula();
+		if (par!=null) {
+			this.miJuego.añadir(par);
+		}
+	}
+	
+	private Premio soltarpremio(Point p) {
 		Random rnd=new Random();
 		int i=rnd.nextInt(19);
 		if (i==1) {
@@ -39,27 +63,17 @@ public abstract class Infectado extends Persona {
 			return null;
 		}
 	}
-	public void recibirdaño(int daño) {
-		this.cargaviral=-daño;
-		if (this.cargaviral<1) {
-			this.miEstado=false;
-			Premio pre=this.soltarpremio(this.miImagen.getIcon().getLocation());
-			if (pre!=null) {;
-				this.miJuego.añadir(pre);
-			}
-		}
-	}
-	public void accionar() {
-		JLabel i=this.getImagen().getIcon();
-		if (i.getY()-this.velocidad<1) {
-			i.setLocation(i.getX(), this.getJuego().getDimension().height);
+	
+	private Particula desprenderparticula() {
+		Random rnd=new Random();
+		int i=rnd.nextInt(15);
+		if (i==1) {
+			Particula p=new Particula(miJuego);
+			p.miImagen.getJLabel().setLocation(this.miImagen.getJLabel().getLocation());
+			return p;
 		}
 		else {
-			i.setLocation(i.getX(), i.getY()-this.velocidad);
-		}
-		Particula par=desprenderparticula();
-		if (par!=null) {
-			this.miJuego.añadir(par);
+			return null;
 		}
 	}
 }

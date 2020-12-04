@@ -12,12 +12,16 @@ public abstract class Premio extends Entidad {
 	}
 	//Metodos
 	public void accionar(){
-		JLabel i=this.getImagen().getIcon();
-		if (i.getY()-this.velocidad<1) {
-			i.setLocation(i.getX(), this.getJuego().getDimension().height);
+		JLabel i=this.getImagen().getJLabel();
+		if (i.getY()+this.velocidad>this.miJuego.getaltomapa()) {
+			this.miEstado=false;
 		}
 		else {
-			this.miEstado=false;
+			
+			int nuevoX=i.getX();
+			int nuevoY=i.getY()+this.velocidad;
+			
+			i.setLocation(nuevoX, nuevoY);
 		}
 	}
 }
