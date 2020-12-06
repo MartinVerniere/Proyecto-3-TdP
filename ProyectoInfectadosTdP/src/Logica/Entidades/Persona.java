@@ -11,7 +11,6 @@ public abstract class Persona extends Entidad {
 		super(j);
 		cargaviral=100;
 		cargaviraltotal=100;
-		// TODO Auto-generated constructor stub
 	}
 	//Metodos
 	public int getcargaviral() { return this.cargaviral; }

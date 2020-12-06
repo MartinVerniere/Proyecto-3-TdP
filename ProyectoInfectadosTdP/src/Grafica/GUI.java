@@ -8,9 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen;
-import Logica.ImagenesLogica.Imagen_mapa;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.Timer;
@@ -19,7 +16,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -30,6 +26,9 @@ public class GUI extends JFrame {
 	private Thread hiloEntidades;
 	private Timer hiloPuntaje;
 	private JPanel miMapa;
+	private JLabel labelMapa;
+	private String[] imagenesmapa;
+	
 
 	/**
 	 * Launch the application.
@@ -88,13 +87,13 @@ public class GUI extends JFrame {
 	private void Inicializarlabelspanel(JPanel panelinformacion, JPanel mapa) {
 		// TODO Auto-generated method stub
 		
-		JLabel labelMapa = new JLabel();
-		String[] imagenes = new String[] {"/Imagenes/pixel-mapa.png"};
-		ImageIcon imagen= new ImageIcon(this.getClass().getResource(imagenes[0]));
-		labelMapa=new JLabel(imagen);
-		labelMapa.setBounds(0,0, imagen.getIconWidth(), imagen.getIconHeight());
-		labelMapa.setSize(mapa.getSize());		
-		mapa.add(labelMapa);
+		this.labelMapa = new JLabel();
+		imagenesmapa = new String[] {"/Imagenes/pixel-mapa-1.png","/Imagenes/pixel-mapa-2.png"};
+		ImageIcon imagen= new ImageIcon(this.getClass().getResource(imagenesmapa[0]));
+		this.labelMapa=new JLabel(imagen);
+		this.labelMapa.setBounds(0,0, imagen.getIconWidth(), imagen.getIconHeight());
+		this.labelMapa.setSize(mapa.getSize());		
+		mapa.add(this.labelMapa);
 		
 		JLabel lblPuntaje = new JLabel("Puntaje:");
 		lblPuntaje.setBounds(450, 7, 59, 23);
@@ -178,4 +177,37 @@ public class GUI extends JFrame {
 	
 	public int getanchomapa() {	return this.miMapa.getWidth(); }
 	public int getaltomapa() { return this.miMapa.getHeight(); }
+	
+	public void cambiarmapa() {
+		ImageIcon imagen= new ImageIcon(this.getClass().getResource(imagenesmapa[1]));
+		this.labelMapa.setIcon(imagen);
+		this.labelMapa.setBounds(0,0, imagen.getIconWidth(), imagen.getIconHeight());
+		this.labelMapa.setSize(this.miMapa.getSize());		
+		this.labelMapa.repaint();
+	}
+	
+	public void moverhorizontal(JLabel l, int desX) {
+		if (desX>l.getX()) {
+			for (int i=l.getX();i<desX;i++) {
+				l.setLocation(i, l.getY());
+			}
+		}
+		else {
+			for (int i=l.getX();i>desX;i--) {
+				l.setLocation(i, l.getY());
+			}
+		}
+	}
+	public void moververtical(JLabel l, int desY) {
+		if (desY>l.getY()) {
+			for (int i=l.getY();i<desY;i++) {
+				l.setLocation(l.getX(), i);
+			}
+		}
+		else {
+			for (int i=l.getY();i>desY;i--) {
+				l.setLocation(l.getX(), i);
+			}
+		}
+	}
 }

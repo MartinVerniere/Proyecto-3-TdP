@@ -22,6 +22,7 @@ public abstract class Tanda {
 	public boolean isEmpty() { return this.cant==0; }
 	
 	public int getcantinfectados() { return this.cant; }
+	public void setcantinfectados(int cant) { this.cant=cant; }
 	
 	public void setsiguiente(Tanda t) { this.siguiente=t; }
 	public Tanda getsiguiente() { return this.siguiente; }

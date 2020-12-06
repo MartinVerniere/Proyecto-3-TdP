@@ -1,5 +1,7 @@
 package Logica.Fabrica_Infectados;
 
+import java.util.Random;
+
 import Logica.Juego;
 import Logica.Entidades.*;
 
@@ -13,5 +15,11 @@ public abstract class FabricaInfectado {
 	//Metodos
 	public Infectado crear() {
 		return null;
+	}
+	
+	protected void setpos(Infectado inf) {
+		Random rnd=new Random();
+		int randomx=rnd.nextInt(this.juego.getanchomapa()-inf.getancho());
+		inf.getImagen().getJLabel().setLocation(randomx, 0);
 	}
 }

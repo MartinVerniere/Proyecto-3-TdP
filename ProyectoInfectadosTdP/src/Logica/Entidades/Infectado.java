@@ -20,6 +20,7 @@ public abstract class Infectado extends Persona {
 	
 	public void recibirdaño(int daño) {
 		this.cargaviral=-daño;
+		System.out.println("Vida inf: "+this.cargaviral);
 		if (this.cargaviral<1) {
 			this.miEstado=false;
 			this.getJuego().addpuntaje(10);
@@ -38,14 +39,17 @@ public abstract class Infectado extends Persona {
 			int nuevoX=i.getX();
 			int nuevoY=0;
 			
+			
 			i.setLocation(nuevoX,nuevoY);
+			
 		}
 		else {
 			
-			int nuevoX=i.getX();
+			//int nuevoX=i.getX();
 			int nuevoY=i.getY()+this.velocidad;
 			
-			i.setLocation(nuevoX, nuevoY);
+			//i.setLocation(nuevoX, nuevoY);
+			this.getJuego().getGUI().moververtical(i, nuevoY);
 		}
 		Particula par=desprenderparticula();
 		if (par!=null) {

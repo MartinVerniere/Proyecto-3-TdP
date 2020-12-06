@@ -155,6 +155,7 @@ public class Juego {
 			this.miNivel=this.miNivel.getsiguiente();
 			if (this.miNivel!=null) {
 				System.out.println("Cargo nivel siguiente");
+				this.miGUI.cambiarmapa();
 				this.añadirarreglo(this.miNivel.gettanda().getarreglo());
 			}
 		}

@@ -34,10 +34,11 @@ public class Particula extends Entidad{
 		}
 		else {
 			
-			int nuevoX=i.getX();
+			//int nuevoX=i.getX();
 			int nuevoY=i.getY()+this.velocidad;
 			
-			i.setLocation(nuevoX, nuevoY);
+			//i.setLocation(nuevoX, nuevoY);
+			this.getJuego().getGUI().moververtical(i, nuevoY);
 			
 			this.distanciarecorrida+=this.velocidad;
 			if (this.distanciarecorrida>=this.alcancemaximo) {

@@ -37,7 +37,7 @@ public class Jugador extends Persona{
 	}
 	public void recibirdaño(int daño) {
 		this.cargaviral+=daño;
-		System.out.println("Vida: "+this.cargaviral);
+		System.out.println("CargaViral: "+this.cargaviral);
 		if (this.cargaviral>99) {
 			this.miEstado=false;
 			System.out.println("Jugador murio");

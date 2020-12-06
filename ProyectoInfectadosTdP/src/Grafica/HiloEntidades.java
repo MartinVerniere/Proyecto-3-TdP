@@ -20,22 +20,14 @@ public class HiloEntidades extends Thread {
 		timer=hiloPuntaje;
 	}
 	//Metodos
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings({ "static-access" })
 	public void run() {
 		while (true) {
 			try {
 				juego.accionar();
 				
-				if (juego.gano()) {
-					timer.cancel();
-					JOptionPane.showMessageDialog(panel, "Usted a ganado");
-					this.stop();
-				}
-				if (juego.perdio()) {
-					timer.cancel();
-					JOptionPane.showMessageDialog(panel, "Usted a perdido, mala suerte");
-					this.stop();
-				}
+				if (juego.gano()) { cerrar(panel,"Usted a ganado", timer); }
+				if (juego.perdio()) { cerrar(panel, "Usted a perdido, mala suerte", timer);	}
 				
 				this.sleep(500);
 			} catch (InterruptedException e) {
@@ -43,5 +35,12 @@ public class HiloEntidades extends Thread {
 				e.printStackTrace();
 			}
 		}
+	}
+	@SuppressWarnings("deprecation")
+	private void cerrar(JPanel panel2, String mensaje, Timer t) {
+		// TODO Auto-generated method stub
+		t.cancel();
+		JOptionPane.showMessageDialog(panel, mensaje);
+		this.stop();
 	}
 }
