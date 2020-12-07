@@ -7,17 +7,18 @@ public abstract class Nivel {
 	//Atributos
 	
 	protected Tanda miTanda;
-	protected Juego juego;
+	protected Juego miJuego;
 	protected Nivel siguiente;
 	protected FabricaInfectado[] misFabricas;
 	//Constructor
 	
 	public Nivel(Juego j) {
-		this.juego=j;
+		this.miJuego=j;
 	}
 	//Metodos
 
 	public Nivel getsiguiente() { return siguiente; }
+	public void setsiguiente(Nivel n) { siguiente=n; }
 	
 	public FabricaInfectado[] getfabricas() { return this.misFabricas; }
 	public void setfabricas(FabricaInfectado[] f) { this.misFabricas=f; }
@@ -33,7 +34,7 @@ public abstract class Nivel {
 			this.settanda(this.gettanda().getsiguiente());
 			if (this.gettanda()!=null) {
 				System.out.println("Cargo tanda siguiente");
-				this.juego.añadirarreglo(this.gettanda().getarreglo());
+				this.miJuego.añadirarreglo(this.gettanda().getarreglo());
 			}
 		}
 	}

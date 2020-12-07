@@ -18,8 +18,8 @@ public class Jugador extends Persona{
 		this.miVisitor=new Visitor_jugador(this);
 		this.miImagen=new Imagen_jugador();
 		
-		int nuevaX=(this.miJuego.getanchomapa()-this.getancho())/2;
-		int nuevaY=this.getJuego().getaltomapa()-this.getalto();
+		int nuevaX=(this.miJuego.getGUI().getanchomapa()-this.getancho())/2;
+		int nuevaY=this.getJuego().getGUI().getaltomapa()-this.getalto();
 		
 		this.miImagen.getJLabel().setLocation(nuevaX, nuevaY);
 	}

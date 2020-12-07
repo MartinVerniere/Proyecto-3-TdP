@@ -12,7 +12,7 @@ public class Fabrica_Premio_daño extends FabricaPremio {
 	}
 	//Metodos
 	public Premio crear(Point punto) { 
-		Premio p= new Premio_multiplicar_daño(juego); 
+		Premio p= new Premio_multiplicar_daño(this.miJuego); 
 		p.getImagen().getJLabel().setLocation(punto);
 		return p;
 	}

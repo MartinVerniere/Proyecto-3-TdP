@@ -29,7 +29,7 @@ public class Particula extends Entidad{
 	public void accionar() {
 		JLabel i=this.getImagen().getJLabel();
 		
-		if (i.getY()+this.velocidad>this.miJuego.getaltomapa()) {
+		if (i.getY()+this.velocidad>this.miJuego.getGUI().getaltomapa()) {
 			this.miEstado=false;
 		}
 		else {

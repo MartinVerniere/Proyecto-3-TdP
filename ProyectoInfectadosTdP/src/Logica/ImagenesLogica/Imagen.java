@@ -4,16 +4,11 @@ import javax.swing.JLabel;
 
 public abstract class Imagen {
 	//Atributos
-	protected JLabel icon;
-	//protected ImageIcon im;
+	protected JLabel miJLabel;
 	protected String[] imagenes;
 	//Constructor
 	public Imagen() {}
 	//Metodos
-	public void setIcon(JLabel i) { this.icon=i; }
-	public JLabel getJLabel() { return this.icon; }
-	
-	public void mover() {}
-
-	public void actualizar() {}
+	public void setJLabel(JLabel i) { this.miJLabel=i; }
+	public JLabel getJLabel() { return this.miJLabel; }
 }

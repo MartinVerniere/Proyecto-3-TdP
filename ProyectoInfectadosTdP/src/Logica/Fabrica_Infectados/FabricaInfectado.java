@@ -19,7 +19,7 @@ public abstract class FabricaInfectado {
 	
 	protected void setpos(Infectado inf) {
 		Random rnd=new Random();
-		int randomx=rnd.nextInt(this.juego.getanchomapa()-inf.getancho());
+		int randomx=rnd.nextInt(this.juego.getGUI().getanchomapa()-inf.getancho());
 		inf.getImagen().getJLabel().setLocation(randomx, 0);
 	}
 }

@@ -7,10 +7,10 @@ import Logica.Entidades.Premio;
 
 public abstract class FabricaPremio {
 	//Atributos
-	protected Juego juego;
+	protected Juego miJuego;
 	//Constructor
 	public FabricaPremio(Juego j) {
-		this.juego=j;
+		this.miJuego=j;
 	}
 	//Metodos
 	public Premio crear(Point p) {

@@ -9,13 +9,13 @@ import Logica.Juego;
 
 public class HiloEntidades extends Thread {
 	//Atributos
-	private Juego juego;
+	private Juego miJuego;
 	private JPanel panel;
 	private Timer timer;
 	//Constructor
 	public HiloEntidades(Juego j, JPanel panel, Timer hiloPuntaje) {
 		super();
-		this.juego=j;
+		this.miJuego=j;
 		this.panel=panel;
 		timer=hiloPuntaje;
 	}
@@ -24,10 +24,10 @@ public class HiloEntidades extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				juego.accionar();
+				miJuego.accionar();
 				
-				if (juego.gano()) { cerrar(panel,"Usted a ganado", timer); }
-				if (juego.perdio()) { cerrar(panel, "Usted a perdido, mala suerte", timer);	}
+				if (miJuego.gano()) { cerrar(panel,"Usted a ganado", timer); }
+				if (miJuego.perdio()) { cerrar(panel, "Usted a perdido, mala suerte", timer);	}
 				
 				this.sleep(500);
 			} catch (InterruptedException e) {

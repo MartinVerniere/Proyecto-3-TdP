@@ -2,26 +2,13 @@ package Logica.Visitors;
 
 import Logica.Entidades.*;
 
-public class Visitor_premio_congelar_tiempo implements Visitor_premio{
+public class Visitor_premio_congelar_tiempo extends Visitor_premio{
 	//Atributos
-	protected Premio premio;
 	//Constructor
 	public Visitor_premio_congelar_tiempo(Premio p) {
-		this.premio=p;
+		super(p);
 	}
 	//Metodos
-	@Override
-	public void visit(Infectado_alpha i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(Infectado_beta i) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void visit(Jugador j) {
 		for (Entidad e:j.getJuego().getlistaentidades()) {
@@ -29,26 +16,7 @@ public class Visitor_premio_congelar_tiempo implements Visitor_premio{
 				e.setvelocidad(0);
 			}
 		}
-		this.premio.setEstado(false);
+		System.out.println("Premio congelar activado");
+		this.miPremio.setEstado(false);
 	}
-
-	@Override
-	public void visit(Premio p) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(Proyectil p) {
-		// TODO Auto-generated method stub
-		
-	}
-	//Metodos
-
-	@Override
-	public void visit(Particula p) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

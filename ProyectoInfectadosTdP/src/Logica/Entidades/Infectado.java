@@ -34,7 +34,7 @@ public abstract class Infectado extends Persona {
 	public void accionar() {
 		JLabel i=this.getImagen().getJLabel();
 		
-		if (i.getY()+this.velocidad>this.miJuego.getaltomapa()) {
+		if (i.getY()+this.velocidad>this.miJuego.getGUI().getaltomapa()) {
 			
 			int nuevoX=i.getX();
 			int nuevoY=0;

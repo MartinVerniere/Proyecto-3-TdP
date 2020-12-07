@@ -42,7 +42,7 @@ public class Movimiento {
 	}
 	//Si moviendose a la derecha su imagen se desborda del mapa por al menos un pixel, retorna falso;
 	private boolean permitidoderecha(JLabel icono, Jugador j) { 
-		return (icono.getX()+j.getvelocidad())<j.getJuego().getanchomapa()-j.getancho();
+		return (icono.getX()+j.getvelocidad())<j.getJuego().getGUI().getanchomapa()-j.getancho();
 	}
 	//Si moviendose a la izquierda su imagen se desborda del mapa por al menos un pixel, retorna falso;
 	private boolean permitidoizquierda(JLabel icono, Jugador j) {

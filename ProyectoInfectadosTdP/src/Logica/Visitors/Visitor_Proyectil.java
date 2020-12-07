@@ -2,7 +2,7 @@ package Logica.Visitors;
 
 import Logica.Entidades.*;
 
-public class Visitor_proyectil implements Visitor{
+public class Visitor_proyectil extends Visitor{
 	//Atributos
 	private Proyectil p;
 	//Constructor
@@ -20,25 +20,4 @@ public class Visitor_proyectil implements Visitor{
 		i.recibirdaño(this.p.dañar());
 		this.p.setEstado(false);
 	}
-	@Override
-	public void visit(Jugador j) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void visit(Premio p) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void visit(Proyectil p) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void visit(Particula p) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

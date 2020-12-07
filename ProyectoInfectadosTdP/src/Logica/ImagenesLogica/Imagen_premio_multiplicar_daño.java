@@ -10,9 +10,9 @@ public class Imagen_premio_multiplicar_daño extends Imagen{
 		imagenes=new String[] {"/Imagenes/pixel-premio-multiplicar-daño.png"};
 		
 		ImageIcon imagen= new ImageIcon(this.getClass().getResource(imagenes[0]));
-		icon=new JLabel(imagen);
+		miJLabel=new JLabel(imagen);
 		
-		icon.setBounds(0,0,imagen.getIconWidth(), imagen.getIconHeight());
+		miJLabel.setBounds(0,0,imagen.getIconWidth(), imagen.getIconHeight());
 	}
 	//Metodos
 }

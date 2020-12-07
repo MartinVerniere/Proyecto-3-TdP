@@ -7,10 +7,10 @@ import Logica.Visitors.Visitor;
 public abstract class Entidad {
 	//Atributos
 	protected int velocidad;
+	protected boolean miEstado;
 	protected Juego miJuego;
 	protected Imagen miImagen;
 	protected Visitor miVisitor;
-	protected boolean miEstado;
 	//Constructor
 	public Entidad(Juego j){
 		this.miEstado=true;
@@ -28,6 +28,7 @@ public abstract class Entidad {
 	
 	public void setImagen(Imagen i) { this.miImagen=i; }
 	public Imagen getImagen() { return this.miImagen; }
+	
 	public Juego getJuego() { return this.miJuego; }
 	public Visitor getVisitor() { return this.miVisitor; }
 	

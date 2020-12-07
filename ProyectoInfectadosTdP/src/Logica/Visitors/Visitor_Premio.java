@@ -1,4 +1,12 @@
 package Logica.Visitors;
 
-public interface Visitor_premio extends Visitor {
+import Logica.Entidades.Premio;
+
+public abstract class Visitor_premio extends Visitor {
+	//Atributos
+	Premio miPremio;
+	//Constructor
+	Visitor_premio(Premio p){
+		this.miPremio=p;
+	}
 }

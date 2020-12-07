@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 public class GUI extends JFrame {
 
 	private JPanel contentPane;
-	private Juego juego;
+	private Juego miJuego;
 	private Thread hiloEntidades;
 	private Timer hiloPuntaje;
 	private JPanel miMapa;
@@ -60,11 +60,11 @@ public class GUI extends JFrame {
 		
 		this.miMapa=new JPanel();
 		Inicializarpaneles();
-		juego=new Juego(this);
+		miJuego=new Juego(this);
 		
 		
 		hiloPuntaje=new Timer();
-		hiloEntidades=new HiloEntidades(juego, contentPane,hiloPuntaje);	
+		hiloEntidades=new HiloEntidades(miJuego, contentPane,hiloPuntaje);	
 	}
 	private void Inicializarpaneles() {
 		
@@ -115,20 +115,34 @@ public class GUI extends JFrame {
 		panelinformacion.add(tiempoactual);
 		tiempoactual.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		Inicializarbotones(puntajeactual, mapa, panelinformacion, tiempoactual);
+		JLabel lblCV = new JLabel("Carga Viral: ");
+		lblCV.setBounds(10, 11, 75, 14);
+		miMapa.add(lblCV,0);
+		lblCV.setForeground(Color.RED);
+		lblCV.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		JLabel lblCargaViral = new JLabel("0");
+		lblCargaViral.setBounds(95, 11, 75, 14);
+		miMapa.add(lblCargaViral,0);
+		lblCargaViral.setForeground(Color.RED);
+		lblCargaViral.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		Inicializarbotones(puntajeactual, mapa, panelinformacion, tiempoactual, lblCargaViral);
 	}
 
-	private void Inicializarbotones(JLabel labelpuntajeactual, JPanel mapa, JPanel panelinformacion, JLabel labeltiempoactual) {
+	private void Inicializarbotones(JLabel labelpuntajeactual, JPanel mapa, JPanel panelinformacion, JLabel labeltiempoactual, JLabel lblCargaViral) {
 		// TODO Auto-generated method stub
 		
 		TimerTask tarea=new TimerTask() {
 			@Override
 			public void run() {
-				String tiempo=juego.getTiempo();
-				String puntaje=String.valueOf(juego.getpuntaje());
+				String tiempo=miJuego.getTiempo();
+				String puntaje=String.valueOf(miJuego.getpuntaje());
+				String CV=String.valueOf(miJuego.getJugador().getcargaviral());
 				
 				labeltiempoactual.setText(tiempo);
 				labelpuntajeactual.setText(puntaje);
+				lblCargaViral.setText(CV);
 			}	
 		};
 		
@@ -138,7 +152,7 @@ public class GUI extends JFrame {
 				
 				requestFocus();
 				btnJugar.setVisible(false);
-				juego.reiniciarTiempo();
+				miJuego.reiniciarTiempo();
 				hiloPuntaje.schedule(tarea, 0, 1000);
 				mapa.setVisible(true);
 				
@@ -147,7 +161,7 @@ public class GUI extends JFrame {
 				addKeyListener(new KeyAdapter() {
 					public void keyPressed(KeyEvent e) { 
 						System.out.println(e.getKeyChar());
-						juego.input(juego.getJugador(), e);
+						miJuego.input(miJuego.getJugador(), e);
 					}
 					
 					public void keyReleased(KeyEvent e) {
@@ -187,27 +201,55 @@ public class GUI extends JFrame {
 	}
 	
 	public void moverhorizontal(JLabel l, int desX) {
-		if (desX>l.getX()) {
-			for (int i=l.getX();i<desX;i++) {
-				l.setLocation(i, l.getY());
+		boolean derecha=desX>l.getX();
+		Timer timeraux=new Timer();
+		TimerTask tarea=new TimerTask() {
+			
+			public void run() {
+				if (derecha) {
+					if (desX>l.getX()) {
+						l.setLocation(l.getX()+1, l.getY());
+					}
+					else {
+						this.cancel();
+					}
+				}
+				else {
+					if (desX<l.getX()) {
+						l.setLocation(l.getX()-1, l.getY());
+					}
+					else {
+						this.cancel();
+					}
+				}
 			}
-		}
-		else {
-			for (int i=l.getX();i>desX;i--) {
-				l.setLocation(i, l.getY());
-			}
-		}
+		};
+		timeraux.schedule(tarea, 0 ,1);
 	}
+	
 	public void moververtical(JLabel l, int desY) {
-		if (desY>l.getY()) {
-			for (int i=l.getY();i<desY;i++) {
-				l.setLocation(l.getX(), i);
+		boolean arriba=desY<l.getY();
+		Timer timeraux=new Timer();
+		TimerTask tarea=new TimerTask() {
+			public void run() {
+				if (arriba) {
+					if (desY<l.getY()) {
+						l.setLocation(l.getX(), l.getY()-1);
+					}
+					else {
+						this.cancel();
+					}
+				}
+				else {
+					if (desY>l.getY()) {
+						l.setLocation(l.getX(), l.getY()+1);
+					}
+					else {
+						this.cancel();
+					}
+				}
 			}
-		}
-		else {
-			for (int i=l.getY();i>desY;i--) {
-				l.setLocation(l.getX(), i);
-			}
-		}
+		};
+		timeraux.schedule(tarea, 0 , 1);
 	}
 }

@@ -12,11 +12,11 @@ public class Nivel_1 extends Nivel {
 	
 	public Nivel_1(Juego j) {
 		super(j);
-		siguiente=new Nivel_2(juego);
+		siguiente=new Nivel_2(miJuego);
 		
 		misFabricas=new FabricaInfectado[2];
-		misFabricas[0]=new Fabricaalfa(juego);
-		misFabricas[1]=new Fabricabeta(juego);
+		misFabricas[0]=new Fabricaalfa(miJuego);
+		misFabricas[1]=new Fabricabeta(miJuego);
 		
 		settanda(new Tanda_1(this, 10));
 		

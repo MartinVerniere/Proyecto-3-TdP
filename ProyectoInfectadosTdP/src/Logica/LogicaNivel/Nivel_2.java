@@ -14,8 +14,8 @@ public class Nivel_2 extends Nivel{
 		siguiente = null;		
 		
 		misFabricas=new FabricaInfectado[2];
-		misFabricas[0]=new Fabricaalfa(juego);
-		misFabricas[1]=new Fabricabeta(juego);
+		misFabricas[0]=new Fabricaalfa(miJuego);
+		misFabricas[1]=new Fabricabeta(miJuego);
 		
 		settanda(new Tanda_1(this, 10));
 		

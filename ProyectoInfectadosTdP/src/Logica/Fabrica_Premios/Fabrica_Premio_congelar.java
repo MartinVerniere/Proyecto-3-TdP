@@ -13,7 +13,7 @@ public class Fabrica_Premio_congelar extends FabricaPremio {
 	}
 	//Metodos
 	public Premio crear(Point punto) { 
-		Premio p= new Premio_congelar_tiempo(juego); 
+		Premio p= new Premio_congelar_tiempo(this.miJuego); 
 		p.getImagen().getJLabel().setLocation(punto);
 		return p;
 	}

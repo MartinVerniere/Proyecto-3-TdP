@@ -88,6 +88,7 @@ public class Juego {
 	public Entidad[] getlistaentidades() { return this.misEntidades; }
 	
 	public void añadir(Entidad e) {
+		
 		if (cantentidades<this.misEntidades.length) {
 			this.misEntidades[cantentidades]=e;
 			cantentidades++;
@@ -141,7 +142,7 @@ public class Juego {
 	private void eliminarelementos() {
 		for(int i=0; i<cantentidades;i++) {
 			Entidad e1 = this.misEntidades[i];
-			if (e1.getEstado()==false) {
+			if (e1!=null && e1.getEstado()==false) {
 				this.miGUI.eliminarlabel(e1.getImagen().getJLabel());
 				e1=null;
 				cantentidades--;
@@ -209,7 +210,4 @@ public class Juego {
 	}
 	
 	public void addpuntaje(int i) { this.puntaje+=i; }
-	
-	public int getanchomapa() {	return this.miGUI.getanchomapa(); }
-	public int getaltomapa() { return this.miGUI.getaltomapa(); }
 }
