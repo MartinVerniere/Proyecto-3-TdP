@@ -1,13 +1,13 @@
-package Logica.ImagenesLogica;
+package Logica.LogicaImagenes;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Imagen_particula extends Imagen {
+public class Imagen_premio_multiplicar_daño extends Imagen{
 	//Atributos
 	//Constructor
-	public Imagen_particula() {
-		imagenes=new String[] {"/Imagenes/pixel-particula.png"};
+	public Imagen_premio_multiplicar_daño() {
+		imagenes=new String[] {"/Imagenes/pixel-premio-multiplicar-daño.png"};
 		
 		ImageIcon imagen= new ImageIcon(this.getClass().getResource(imagenes[0]));
 		miJLabel=new JLabel(imagen);

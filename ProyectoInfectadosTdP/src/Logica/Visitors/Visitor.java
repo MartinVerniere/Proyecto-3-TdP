@@ -10,4 +10,9 @@ public abstract class Visitor {
 	public void visit(Premio p) {}
 	public void visit(Proyectil p) {}
 	public void visit(Particula p) {}
+	//CONGELAR
+	/*
+	public void visit_congelar() {}
+	public boolean visit_estado() { return false; }
+	*/
 }

@@ -10,22 +10,16 @@ public class Movimiento {
 	public void input(Jugador j, KeyEvent i)  {
 		JLabel imagenlabel = j.getImagen().getJLabel();
 		
-		if (i.getKeyCode()==KeyEvent.VK_RIGHT && permitidoderecha(imagenlabel, j) ) {
+		if (i.getKeyCode()==KeyEvent.VK_RIGHT /*&& permitidoderecha(imagenlabel, j)*/ ) {
 			
 			int nuevoX=imagenlabel.getX()+j.getvelocidad();
-			//int nuevoY=imagenlabel.getY();
-			
-			//imagenlabel.setLocation(nuevoX, nuevoY);
 			
 			j.getJuego().getGUI().moverhorizontal(imagenlabel, nuevoX);
 		}
 		
-		if (i.getKeyCode()==KeyEvent.VK_LEFT && permitidoizquierda(imagenlabel, j) ) {
+		if (i.getKeyCode()==KeyEvent.VK_LEFT /*&& permitidoizquierda(imagenlabel, j) */) {
 			
 			int nuevoX=imagenlabel.getX()-j.getvelocidad();
-			//int nuevoY=imagenlabel.getY();
-			
-			//imagenlabel.setLocation(nuevoX, nuevoY);
 			
 			j.getJuego().getGUI().moverhorizontal(imagenlabel, nuevoX);
 		}
@@ -40,6 +34,7 @@ public class Movimiento {
 			j.getJuego().añadir(p);
 		}
 	}
+	/*
 	//Si moviendose a la derecha su imagen se desborda del mapa por al menos un pixel, retorna falso;
 	private boolean permitidoderecha(JLabel icono, Jugador j) { 
 		return (icono.getX()+j.getvelocidad())<j.getJuego().getGUI().getanchomapa()-j.getancho();
@@ -48,5 +43,6 @@ public class Movimiento {
 	private boolean permitidoizquierda(JLabel icono, Jugador j) {
 		return (icono.getX()-j.getvelocidad())>=0;
 	}
+	*/
 	
 }

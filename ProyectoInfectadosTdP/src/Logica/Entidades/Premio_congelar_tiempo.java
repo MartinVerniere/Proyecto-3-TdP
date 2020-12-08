@@ -1,7 +1,7 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen_premio_congelar_infectados;
+import Logica.LogicaImagenes.Imagen_premio_congelar_infectados;
 import Logica.Visitors.Visitor;
 import Logica.Visitors.Visitor_premio_congelar_tiempo;
 

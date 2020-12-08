@@ -1,7 +1,7 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen_jugador;
+import Logica.LogicaImagenes.Imagen_jugador;
 import Logica.Visitors.Visitor;
 import Logica.Visitors.Visitor_jugador;
 

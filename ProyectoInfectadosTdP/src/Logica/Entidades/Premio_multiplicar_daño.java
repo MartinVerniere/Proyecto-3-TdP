@@ -1,7 +1,7 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen_premio_multiplicar_daño;
+import Logica.LogicaImagenes.Imagen_premio_multiplicar_daño;
 import Logica.Visitors.Visitor;
 import Logica.Visitors.Visitor_premio_daño;
 

@@ -15,6 +15,7 @@ public class Visitor_premio_congelar_tiempo extends Visitor_premio{
 			if (e instanceof Infectado) {                                                                                            //MAL
 				e.setvelocidad(0);
 			}
+			//e.visitar_congelar();
 		}
 		System.out.println("Premio congelar activado");
 		this.miPremio.setEstado(false);

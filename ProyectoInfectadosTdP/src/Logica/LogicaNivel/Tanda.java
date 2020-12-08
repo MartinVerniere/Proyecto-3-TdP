@@ -19,7 +19,7 @@ public abstract class Tanda {
 	}
 	//Metodos
 	
-	public boolean isEmpty() { return this.cant==0; }
+	public boolean isEmpty() { return (this.cant==0); }
 	
 	public int getcantinfectados() { return this.cant; }
 	public void setcantinfectados(int cant) { this.cant=cant; }
@@ -47,10 +47,11 @@ public abstract class Tanda {
 		}
 	}
 	public void eliminarelementos() {
-		for (Entidad e: this.miArreglo) {
-			if (e.getEstado()==false) {
-				e=null;
+		for (int i=0; i<this.cant;i++) {
+			if (this.miArreglo[i].getEstado()==false) {
+				this.miArreglo[i]=null;
 				this.cant--;
+				System.out.println("Elems restantes en tanda: "+cant);
 			}
 		}
 		comprimir();

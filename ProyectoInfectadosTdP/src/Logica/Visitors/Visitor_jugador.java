@@ -10,4 +10,7 @@ public class Visitor_jugador extends Visitor{
 		
 	}
 	//Metodos
+	
+	 public boolean visit_estado(){ return true; }
+	 
 }

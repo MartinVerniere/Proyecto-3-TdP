@@ -3,7 +3,7 @@ package Logica.Entidades;
 import javax.swing.JLabel;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen_particula;
+import Logica.LogicaImagenes.Imagen_particula;
 import Logica.Visitors.Visitor;
 import Logica.Visitors.Visitor_particula;
 

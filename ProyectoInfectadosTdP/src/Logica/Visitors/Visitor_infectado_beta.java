@@ -14,4 +14,10 @@ public class Visitor_infectado_beta extends Visitor {
 	public void visit(Jugador j) { 
 		j.recibirdaño(this.ib.dañar()); 
 	}
+	//CONGELAR
+	/*
+	public void visit_congelar() {
+		this.ib.setvelocidad(0);
+	}
+	*/
 }

@@ -1,7 +1,7 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.*;
+import Logica.LogicaImagenes.*;
 import Logica.Visitors.Visitor;
 
 public abstract class Entidad {
@@ -22,6 +22,8 @@ public abstract class Entidad {
 		e1.visitar(this.miVisitor);
 	}
 	public void visitar(Visitor v1) {}
+	//public void visitar_congelar() { this.miVisitor.visit_congelar(); }
+	//public boolean visitar_estado() { return this.miVisitor.visit_estado(); }
 	
 	public boolean getEstado() { return this.miEstado; }
 	public void setEstado(boolean estado) { this.miEstado=estado; }
@@ -39,4 +41,16 @@ public abstract class Entidad {
 	public int getancho() { return this.miImagen.getJLabel().getWidth(); }
 	
 	public void accionar() {}
+	
+	/*
+	public void eliminar() {
+		// TODO Auto-generated method stub
+		this.miEstado=false;
+		this.miImagen.eliminar();
+		this.miImagen=null;
+		this.miJuego=null;
+		this.miVisitor=null;;
+		this.velocidad=0;
+	}
+	*/
 }

@@ -1,7 +1,7 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen_infectado_beta;
+import Logica.LogicaImagenes.Imagen_infectado_beta;
 import Logica.Visitors.Visitor;
 import Logica.Visitors.Visitor_infectado_beta;
 

@@ -2,7 +2,7 @@
 package Logica.Entidades;
 
 import Logica.Juego;
-import Logica.ImagenesLogica.Imagen_premio_vida;
+import Logica.LogicaImagenes.Imagen_premio_vida;
 import Logica.Visitors.Visitor;
 import Logica.Visitors.Visitor_premio_vida;
 

@@ -39,7 +39,6 @@ public abstract class Infectado extends Persona {
 			int nuevoX=i.getX();
 			int nuevoY=0;
 			
-			
 			i.setLocation(nuevoX,nuevoY);
 			
 		}
@@ -70,7 +69,7 @@ public abstract class Infectado extends Persona {
 	
 	private Particula desprenderparticula() {
 		Random rnd=new Random();
-		int i=rnd.nextInt(15);
+		int i=rnd.nextInt(25);
 		if (i==1) {
 			Particula p=new Particula(miJuego);
 			p.miImagen.getJLabel().setLocation(this.miImagen.getJLabel().getLocation());

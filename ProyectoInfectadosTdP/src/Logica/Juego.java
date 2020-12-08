@@ -14,6 +14,7 @@ import Logica.Fabrica_Premios.Fabrica_Premio_daño;
 import Logica.Fabrica_Premios.Fabrica_Premio_vida;
 import Logica.LogicaNivel.Nivel;
 import Logica.LogicaNivel.Nivel_1;
+import Logica.LogicaNivel.Tanda;
 
 public class Juego {
 	//Atributos
@@ -47,21 +48,24 @@ public class Juego {
 		
 		misEntidades=new Entidad[100];
 		
-		this.añadir(miJugador);
-		System.out.println("Cargo tanda inicial");
-		this.añadirarreglo(this.miNivel.gettanda().getarreglo());
-		
 	}
 	//Metodos
 	
-	public void añadirarreglo(Entidad[] arreglo) {
+	public void Inicializar() {
+		// TODO Auto-generated method stub
+		this.añadir(miJugador);
+		System.out.println("Cargo tanda inicial");
+		this.añadirtanda(this.miNivel.gettanda());
+	}
+
+	public void añadirtanda(Tanda tanda) {
 		// TODO Auto-generated method stub
 		Timer timeraux=new Timer();
 		TimerTask tarea=new TimerTask() {
 			int cont=0;
 			public void run() {
-				if (cont<arreglo.length) {
-					añadir(arreglo[cont]);
+				if (cont<tanda.getcantinfectados()) {
+					añadir(tanda.getarreglo()[cont]);
 					cont++;
 				}
 				else {
@@ -123,10 +127,17 @@ public class Juego {
 	public int getpuntaje() { return this.puntaje; }
 	
 	public boolean perdio() {
-		for (Entidad e:this.misEntidades) {
-			if (e instanceof Jugador) {                                                                                            //MAL
+		for (int i=0; i<this.cantentidades;i++) {
+			if (this.misEntidades[i] instanceof Jugador) {
 				return false;
 			}
+			/* 
+			 * boolean estado=false;
+			 * for (int i=0;i<this.cantentidades;i++){
+			 * 	 estado=( estado || this.misEntidades[i].visitar_estado());
+			 * }
+			 * return estado;
+			 */
 		}
 		return true;
 	}
@@ -134,9 +145,9 @@ public class Juego {
 	public boolean gano() {	return  (this.miNivel==null); }
 	
 	public void accionar() {
-		eliminarelementos();
-		colision();
 		mover();
+		colision();
+		eliminarelementos();
 	}
 
 	private void eliminarelementos() {
@@ -144,23 +155,25 @@ public class Juego {
 			Entidad e1 = this.misEntidades[i];
 			if (e1!=null && e1.getEstado()==false) {
 				this.miGUI.eliminarlabel(e1.getImagen().getJLabel());
+				//e1.eliminar();
 				e1=null;
 				cantentidades--;
 			}
 		}
 		comprimir();
-		
 		this.miNivel.eliminarelementos();
+		
 		
 		if (this.miNivel!=null && this.miNivel.gettanda()==null) {
 			this.miNivel=this.miNivel.getsiguiente();
 			if (this.miNivel!=null) {
 				System.out.println("Cargo nivel siguiente");
 				this.miGUI.cambiarmapa();
-				this.añadirarreglo(this.miNivel.gettanda().getarreglo());
+				this.añadirtanda(this.miNivel.gettanda());
 			}
 		}
 	}
+	
 	private void comprimir() {
 		int cont=0;
 		int contaux=0;
@@ -184,17 +197,16 @@ public class Juego {
 	}
 	
 	private boolean colision() {
-		for (Entidad e1:this.misEntidades) {
-			if (e1!=null) {
-				for (Entidad e2:this.misEntidades) {
-					if (e2!=null) {
-						if (e1!=e2) {
-							if (e1.getImagen().getJLabel().getBounds().intersects(e2.getImagen().getJLabel().getBounds())) {
-								e1.colision(e2);
-								e2.colision(e1);
-								return true;
-							}
-						}
+		Entidad e1,e2;
+		for (int i=0;i<this.cantentidades;i++) {
+			e1=this.misEntidades[i];
+			for (int j=0;j<this.cantentidades;j++) {
+				if (e1!=this.misEntidades[j]){
+					e2=this.misEntidades[j];
+					if (e1.getImagen().getJLabel().getBounds().intersects(e2.getImagen().getJLabel().getBounds())) {
+						e1.colision(e2);
+						e2.colision(e1);
+						return true;
 					}
 				}
 			}
@@ -202,10 +214,8 @@ public class Juego {
 		return false;
 	}
 	private void mover() {
-		for (Entidad e1:this.misEntidades) {
-			if (e1!=null) {
-				e1.accionar();
-			}
+		for (int i=0;i<this.cantentidades;i++) {
+			this.misEntidades[i].accionar();
 		}
 	}
 	
