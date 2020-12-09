@@ -27,7 +27,7 @@ public class Juego {
 	protected Nivel miNivel;
 	protected Movimiento misMovimientos;
 	protected FabricaPremio[] misFabricapremio;
-	protected Entidad[] misEntidades;	
+	protected Entidad[] misEntidades;
 
 	//Constructor
 	
@@ -74,6 +74,7 @@ public class Juego {
 			}
 		};
 		timeraux.schedule(tarea, 2000, 2000);
+		
 	}
 
 	public void input(Jugador e1, KeyEvent i) {

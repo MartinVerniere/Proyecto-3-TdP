@@ -16,7 +16,7 @@ public class Particula extends Entidad{
 		super(j);
 		this.velocidad=this.velocidad*2;
 		distanciarecorrida=0;
-		alcancemaximo=30;
+		alcancemaximo=200;
 		this.miVisitor=new Visitor_particula(this);
 		this.miImagen=new Imagen_particula();
 	}
