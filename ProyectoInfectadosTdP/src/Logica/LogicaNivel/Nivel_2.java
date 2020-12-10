@@ -7,7 +7,6 @@ import Logica.Fabrica_Infectados.Fabricabeta;
 
 public class Nivel_2 extends Nivel{
 	//Atributos
-	int total;
 	//Constructor
 	public Nivel_2(Juego j) {
 		super(j);
