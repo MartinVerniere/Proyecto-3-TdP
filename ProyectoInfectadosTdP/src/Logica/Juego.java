@@ -54,28 +54,26 @@ public class Juego {
 	public void Inicializar() {
 		// TODO Auto-generated method stub
 		this.añadir(miJugador);
-		System.out.println("Cargo tanda inicial");
 		this.añadirtanda(this.miNivel.gettanda());
 	}
 
 	public void añadirtanda(Tanda tanda) {
-		// TODO Auto-generated method stub
-		Timer timeraux=new Timer();
-		TimerTask tarea=new TimerTask() {
-			int cont=0;
-			public void run() {
-				if (cont<tanda.getcantinfectados()) {
-					añadir(tanda.getarreglo()[cont]);
-					cont++;
-				}
-				else {
-					this.cancel();
-				}
-			}
-		};
-		timeraux.schedule(tarea, 2000, 2000);
-		
-	}
+        // TODO Auto-generated method stub
+        Timer timeraux=new Timer();
+        TimerTask tarea=new TimerTask() {
+            int cont=tanda.getcantinfectados()-1;
+            public void run() {
+                if (cont>=0) {
+                    añadir(tanda.getarreglo()[cont]);
+                    cont--;
+                }
+                else {
+                    this.cancel();
+                }
+            }
+        };
+        timeraux.schedule(tarea, 2000, 2000);
+    }
 
 	public void input(Jugador e1, KeyEvent i) {
 		misMovimientos.input(e1,i);
@@ -90,6 +88,7 @@ public class Juego {
 	public void setJugador(Jugador j) { this.miJugador=j; }
 	public Jugador getJugador() { return  miJugador; }
 	
+	public int getcantentidades() { return this.cantentidades; }
 	public Entidad[] getlistaentidades() { return this.misEntidades; }
 	
 	public void añadir(Entidad e) {
@@ -103,7 +102,7 @@ public class Juego {
 	
 	public Premio crearpremio(Point p) {
 		Random rnd=new Random();
-		int i=rnd.nextInt(2);
+		int i=rnd.nextInt(3);
 		Premio aRetornar = this.misFabricapremio[i].crear(p);
 		
 		return aRetornar;
@@ -127,21 +126,7 @@ public class Juego {
 	
 	public int getpuntaje() { return this.puntaje; }
 	
-	public boolean perdio() {
-		for (int i=0; i<this.cantentidades;i++) {
-			if (this.misEntidades[i] instanceof Jugador) {
-				return false;
-			}
-			/* 
-			 * boolean estado=false;
-			 * for (int i=0;i<this.cantentidades;i++){
-			 * 	 estado=( estado || this.misEntidades[i].visitar_estado());
-			 * }
-			 * return estado;
-			 */
-		}
-		return true;
-	}
+	public boolean perdio() { return (!this.miJugador.isAlive()); }
 	
 	public boolean gano() {	return  (this.miNivel==null); }
 	
@@ -156,19 +141,17 @@ public class Juego {
 			Entidad e1 = this.misEntidades[i];
 			if (e1!=null && e1.getEstado()==false) {
 				this.miGUI.eliminarlabel(e1.getImagen().getJLabel());
-				//e1.eliminar();
 				e1=null;
+				this.misEntidades[i]=null;
 				cantentidades--;
 			}
 		}
 		comprimir();
 		this.miNivel.eliminarelementos();
 		
-		
 		if (this.miNivel!=null && this.miNivel.gettanda()==null) {
 			this.miNivel=this.miNivel.getsiguiente();
 			if (this.miNivel!=null) {
-				System.out.println("Cargo nivel siguiente");
 				this.miGUI.cambiarmapa();
 				this.añadirtanda(this.miNivel.gettanda());
 			}
@@ -197,7 +180,7 @@ public class Juego {
 		}
 	}
 	
-	private boolean colision() {
+	private void colision() {
 		Entidad e1,e2;
 		for (int i=0;i<this.cantentidades;i++) {
 			e1=this.misEntidades[i];
@@ -207,12 +190,10 @@ public class Juego {
 					if (e1.getImagen().getJLabel().getBounds().intersects(e2.getImagen().getJLabel().getBounds())) {
 						e1.colision(e2);
 						e2.colision(e1);
-						return true;
 					}
 				}
 			}
 		}
-		return false;
 	}
 	private void mover() {
 		for (int i=0;i<this.cantentidades;i++) {

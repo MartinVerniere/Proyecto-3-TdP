@@ -16,7 +16,7 @@ public class Particula extends Entidad{
 		super(j);
 		this.velocidad=this.velocidad*2;
 		distanciarecorrida=0;
-		alcancemaximo=200;
+		alcancemaximo=300;
 		this.miVisitor=new Visitor_particula(this);
 		this.miImagen=new Imagen_particula();
 	}
@@ -34,11 +34,10 @@ public class Particula extends Entidad{
 		}
 		else {
 			
-			//int nuevoX=i.getX();
+			int nuevoX=i.getX();
 			int nuevoY=i.getY()+this.velocidad;
 			
-			//i.setLocation(nuevoX, nuevoY);
-			this.getJuego().getGUI().moververtical(i, nuevoY);
+			this.miImagen.mover(nuevoX, nuevoY,this.miJuego.getGUI());
 			
 			this.distanciarecorrida+=this.velocidad;
 			if (this.distanciarecorrida>=this.alcancemaximo) {

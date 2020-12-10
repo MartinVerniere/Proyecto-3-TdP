@@ -51,7 +51,6 @@ public abstract class Tanda {
 			if (this.miArreglo[i].getEstado()==false) {
 				this.miArreglo[i]=null;
 				this.cant--;
-				System.out.println("Elems restantes en tanda: "+cant);
 			}
 		}
 		comprimir();

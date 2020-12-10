@@ -85,7 +85,6 @@ public class GUI extends JFrame {
 		
 	
 	private void Inicializarlabelspanel(JPanel panelinformacion, JPanel mapa) {
-		// TODO Auto-generated method stub
 		
 		this.labelMapa = new JLabel();
 		imagenesmapa = new String[] {"/Imagenes/pixel-mapa-1.png","/Imagenes/pixel-mapa-2.png"};
@@ -131,7 +130,6 @@ public class GUI extends JFrame {
 	}
 
 	private void Inicializarbotones(JLabel labelpuntajeactual, JPanel mapa, JPanel panelinformacion, JLabel labeltiempoactual, JLabel lblCargaViral) {
-		// TODO Auto-generated method stub
 		
 		TimerTask tarea=new TimerTask() {
 			@Override
@@ -165,13 +163,9 @@ public class GUI extends JFrame {
 						miJuego.input(miJuego.getJugador(), e);
 					}
 					
-					public void keyReleased(KeyEvent e) {
-						
-					}
+					public void keyReleased(KeyEvent e) {	}
 
-					public void keyTyped(KeyEvent e) {
-						;
-					}
+					public void keyTyped(KeyEvent e) {	}
 				});
 			}
 		});
@@ -200,105 +194,4 @@ public class GUI extends JFrame {
 		this.labelMapa.setSize(this.miMapa.getSize());		
 		this.labelMapa.repaint();
 	}
-
-	public void moverhorizontal(JLabel l, int desX) {
-		if (l.getX()<desX) { moverderecha(l,desX); }
-		else { moverizquierda(l,desX); }
-	}
-	private void moverderecha(JLabel l, int desX) {
-		int i=l.getX();
-		while (i<desX && i<this.getanchomapa()-l.getWidth()) {
-			i++;
-			l.setLocation(i, l.getY());
-		}
-		repaint();
-	}
-	private void moverizquierda(JLabel l, int desX) {
-		int i=l.getX();
-		while (i>desX && i>0) {
-			i--;
-			l.setLocation(i, l.getY());
-		}
-		repaint();
-	}
-		
-	public void moververtical(JLabel l, int desY) {
-		if (l.getY()<desY) { moverabajo(l,desY); }
-		else { moverarriba(l,desY); }
-		
-	}
-	private void moverabajo(JLabel l, int desY) {
-		int i=l.getY();
-		while (i<desY && i<this.getaltomapa()) {
-			i++;
-			l.setLocation(l.getX(), i);
-		}
-		repaint();
-	}
-	private void moverarriba(JLabel l, int desY) {
-		int i=l.getY();
-		while (i>desY && i>0) {
-			i--;
-			l.setLocation(l.getX(), i);
-		}
-		repaint();
-	}
-
-	
-	/*
-	public void moverhorizontal(JLabel l, int desX) {
-		boolean derecha=desX>l.getX();
-		Timer timeraux=new Timer();
-		TimerTask tarea=new TimerTask() {
-			
-			public void run() {
-				if (derecha) {
-					if (l.getX()<desX && l.getX()<getanchomapa()-l.getWidth()) {
-						l.setLocation(l.getX()+1, l.getY());
-					}
-					else {
-						this.cancel();
-					}
-				}
-				else {
-					if (l.getX()>desX && l.getX()>0) {
-						l.setLocation(l.getX()-1, l.getY());
-					}
-					else {
-						this.cancel();
-					}
-				}
-			}
-		};
-		repaint();
-		timeraux.schedule(tarea, 0 ,1);
-		
-	}
-	public void moververtical(JLabel l, int desY) {
-		boolean arriba=desY<l.getY();
-		Timer timeraux=new Timer();
-		TimerTask tarea=new TimerTask() {
-			public void run() {
-				if (arriba) {
-					if (l.getY()>desY && l.getY()>0) {
-						l.setLocation(l.getX(), l.getY()-1);
-					}
-					else {
-						this.cancel();
-					}
-				}
-				else {
-					if (l.getY()<desY && l.getY()<getaltomapa()) {
-						l.setLocation(l.getX(), l.getY()+1);
-					}
-					else {
-						this.cancel();
-					}
-				}
-			}
-		};
-		repaint();
-		timeraux.schedule(tarea, 0 , 1);
-	}
-	*/
 }

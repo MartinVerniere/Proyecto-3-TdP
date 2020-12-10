@@ -31,11 +31,10 @@ public class Proyectil extends Entidad {
 		}
 		else {
 			
-			//int nuevoX=i.getX();
+			int nuevoX=i.getX();
 			int nuevoY=i.getY()-this.velocidad; //Se mueve hacia arriba
 			
-			//i.setLocation(nuevoX, nuevoY);
-			this.getJuego().getGUI().moververtical(i, nuevoY);
+			this.miImagen.mover(nuevoX, nuevoY, this.miJuego.getGUI());
 		}
 	}
 }

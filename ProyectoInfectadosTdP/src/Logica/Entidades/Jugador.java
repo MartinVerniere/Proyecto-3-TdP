@@ -21,26 +21,25 @@ public class Jugador extends Persona{
 		int nuevaX=(this.miJuego.getGUI().getanchomapa()-this.getancho())/2;
 		int nuevaY=this.getJuego().getGUI().getaltomapa()-this.getalto();
 		
-		this.miImagen.getJLabel().setLocation(nuevaX, nuevaY);
+		this.miImagen.setPos(nuevaX, nuevaY);
 	}
 	//Metodos
 	
 	public int getdaño() { return this.daño; }
 	public void setdaño(int daño) { this.daño=daño; }
 	
-	public void visitar(Visitor v1) {
-		v1.visit(this);
-	}
+	public void visitar(Visitor v1) { v1.visit(this); }
+	
 	public Proyectil disparar() {
 		Proyectil p=new Proyectil(miJuego,daño);
 		return p;
 	}
 	public void recibirdaño(int daño) {
 		this.cargaviral+=daño;
-		System.out.println("CargaViral: "+this.cargaviral);
 		if (this.cargaviral>99) {
 			this.miEstado=false;
-			System.out.println("Jugador murio");
 		}
 	}
+
+	public boolean isAlive() { return (this.getcargaviral()<100); }
 }

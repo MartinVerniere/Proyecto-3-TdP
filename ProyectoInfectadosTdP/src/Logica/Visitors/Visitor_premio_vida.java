@@ -12,7 +12,6 @@ public class Visitor_premio_vida extends Visitor_premio {
 	@Override
 	public void visit(Jugador j) {
 		j.setcargaviral(0);
-		System.out.println("Premio vida activado");
 		this.miPremio.setEstado(false);
 	}
 }

@@ -19,11 +19,10 @@ public abstract class Premio extends Entidad {
 		}
 		else {
 			
-			//int nuevoX=i.getX();
+			int nuevoX=i.getX();
 			int nuevoY=i.getY()+this.velocidad;
 			
-			//i.setLocation(nuevoX, nuevoY);
-			this.getJuego().getGUI().moververtical(i, nuevoY);
+			this.miImagen.mover(nuevoX, nuevoY,this.miJuego.getGUI());
 		}
 	}
 }

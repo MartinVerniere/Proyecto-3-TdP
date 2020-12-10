@@ -33,7 +33,6 @@ public abstract class Nivel {
 		if (this.gettanda()!=null && this.gettanda().isEmpty()) {
 			this.settanda(this.gettanda().getsiguiente());
 			if (this.gettanda()!=null) {
-				System.out.println("Cargo tanda siguiente");
 				this.miJuego.añadirtanda(this.gettanda());
 			}
 		}

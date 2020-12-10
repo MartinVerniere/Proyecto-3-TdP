@@ -14,10 +14,4 @@ public class Visitor_infectado_alpha extends Visitor{
 	public void visit(Jugador j) { 
 		j.recibirdaño(this.ia.dañar()); 
 	}
-	//CONGELAR
-	/*
-	public void visit_congelar() {
-		this.ia.setvelocidad(0);
-	}
-	*/
 }

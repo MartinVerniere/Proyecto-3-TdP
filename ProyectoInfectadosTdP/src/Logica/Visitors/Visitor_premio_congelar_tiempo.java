@@ -4,20 +4,18 @@ import Logica.Entidades.*;
 
 public class Visitor_premio_congelar_tiempo extends Visitor_premio{
 	//Atributos
+	protected Visitor visitor_p;
 	//Constructor
 	public Visitor_premio_congelar_tiempo(Premio p) {
 		super(p);
+		visitor_p=new Visitor_congelar();
 	}
 	//Metodos
 	@Override
 	public void visit(Jugador j) {
-		for (Entidad e:j.getJuego().getlistaentidades()) {
-			if (e instanceof Infectado) {                                                                                            //MAL
-				e.setvelocidad(0);
-			}
-			//e.visitar_congelar();
+		for( int i=0; i<j.getJuego().getcantentidades();i++) {
+			j.getJuego().getlistaentidades()[i].visitar(visitor_p);
 		}
-		System.out.println("Premio congelar activado");
 		this.miPremio.setEstado(false);
 	}
 }

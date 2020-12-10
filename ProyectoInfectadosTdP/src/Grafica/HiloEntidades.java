@@ -37,7 +37,7 @@ public class HiloEntidades extends Thread {
 		}
 	}
 	@SuppressWarnings("deprecation")
-	private void cerrar(JPanel panel2, String mensaje, Timer t) {
+	private void cerrar(JPanel panel, String mensaje, Timer t) {
 		// TODO Auto-generated method stub
 		t.cancel();
 		JOptionPane.showMessageDialog(panel, mensaje);
